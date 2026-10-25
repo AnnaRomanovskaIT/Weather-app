@@ -1,9 +1,11 @@
 export async function searchLocations(name) {
     const response = await fetch(`/api/locations?name=${encodeURIComponent(name)}&locale=en`);
 
+    const data = await response.json();
+
     if (!response.ok) {
-        throw new Error("Failed to search locations");
+        throw new Error(data.error);
     }
 
-    return response.json();
+    return data;
 }
