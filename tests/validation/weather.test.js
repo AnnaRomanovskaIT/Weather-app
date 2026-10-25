@@ -1,9 +1,9 @@
-import test from "node:test";
+import { it, describe } from "node:test";
 import assert from "node:assert/strict";
-
 import validator from "../../src/validation/validation.js";
 
-test("accepts valid coordinates", () => {
+describe("validateWeatherRequest", () => {
+it("accepts valid coordinates", () => {
     const req = {
         query: {
             latitude: "51.1079",
@@ -22,7 +22,7 @@ test("accepts valid coordinates", () => {
     assert.equal(nextCalled, true);
 });
 
-test("rejects an invalid latitude", () => {
+it("rejects an invalid latitude", () => {
     const req = {
         query: {
             latitude: "invalid",
@@ -56,7 +56,7 @@ test("rejects an invalid latitude", () => {
     assert.equal(nextCalled, false);
 });
 
-test("rejects an invalid longitude", () => {
+it("rejects an invalid longitude", () => {
     const req = {
         query: {
             latitude: "51.1079",
@@ -90,7 +90,7 @@ test("rejects an invalid longitude", () => {
     assert.equal(nextCalled, false);
 });
 
-test("rejects when both coordinates are invalid", () => {
+it("rejects when both coordinates are invalid", () => {
     const req = {
         query: {
             latitude: "abc",
@@ -124,7 +124,7 @@ test("rejects when both coordinates are invalid", () => {
     assert.equal(nextCalled, false);
 });
 
-test("rejects latitude greater than 90", () => {
+it("rejects latitude greater than 90", () => {
     const req = {
         query: {
             latitude: "91",
@@ -155,7 +155,7 @@ test("rejects latitude greater than 90", () => {
     assert.equal(response.body.error, "Invalid coordinates");
 });
 
-test("rejects latitude less than -90", () => {
+it("rejects latitude less than -90", () => {
     const req = {
         query: {
             latitude: "-91",
@@ -186,7 +186,7 @@ test("rejects latitude less than -90", () => {
     assert.equal(response.body.error, "Invalid coordinates");
 });
 
-test("rejects longitude greater than 180", () => {
+it("rejects longitude greater than 180", () => {
     const req = {
         query: {
             latitude: "51",
@@ -217,7 +217,7 @@ test("rejects longitude greater than 180", () => {
     assert.equal(response.body.error, "Invalid coordinates");
 });
 
-test("rejects longitude less than -180", () => {
+it("rejects longitude less than -180", () => {
     const req = {
         query: {
             latitude: "51",
@@ -246,4 +246,6 @@ test("rejects longitude less than -180", () => {
 
     assert.equal(response.status, 400);
     assert.equal(response.body.error, "Invalid coordinates");
+});
+
 });

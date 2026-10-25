@@ -1,11 +1,14 @@
 import express from "express";
 import WeatherRouter from "./routes/weather.route.js";
+import { connectToMongo } from "./db/mongo.js";
+import { config } from "./config/config.js";
 
 const app = express();
-const port = 3000;
+
+await connectToMongo();
 
 app.use("/api", WeatherRouter);
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(config.port, () => {
+    console.log(`Server is running on http://localhost:${config.port}`);
 });

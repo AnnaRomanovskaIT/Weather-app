@@ -19,6 +19,19 @@ export function mapOpenMeteoToWeather(data, locationName) {
             longitude: data.longitude,
         }),
         forecast,
-        createdAt: new Date().toISOString(),
+        createdAt: new Date(),
     });
+}
+
+export function mapMongoDocumentToWeather(document) {
+    if (!document) {
+        return null;
+    }
+
+    const { _id, ...weather } = document;
+
+    return {
+        ...weather,
+        id: _id.toString(),
+    };
 }

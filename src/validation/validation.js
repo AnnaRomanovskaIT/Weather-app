@@ -18,37 +18,62 @@ function validateWeatherRequest(req, res, next) {
     next();
 }
 
-function validateLocationRequest(req, res, next) {
-    const name = req.query.name;
+function validateObjectIdRequest(req, res, next) {
+    const { id } = req.params;
 
-    if (typeof name !== "string") {
+    if (typeof id !== "string" || !/^[a-f\d]{24}$/i.test(id)) {
         return res.status(400).json({
-            error: "Location name is required",
-        });
-    }
-
-    if (name.trim().length === 0) {
-        return res.status(400).json({
-            error: "Location name cannot be empty",
-        });
-    }
-
-    if (name.length > 100) {
-        return res.status(400).json({
-            error: "Location name should not exceed 100 characters",
-        });
-    }
-
-    if (!/[\p{L}]/u.test(name)) {
-        return res.status(400).json({
-            error: "Location name must contain at least one letter",
+            error: "Invalid weather ID",
         });
     }
 
     next();
 }
 
+function validateLocationRequest(req, res, next) {
+    const name = req.query.name;
+
+    if (!validateLocationName(name, res)) {
+        return;
+    }
+
+    next();
+}
+
+function validateLocationName(name, res) {
+    if (typeof name !== "string") {
+        res.status(400).json({
+            error: "Location name is required",
+        });
+        return false;
+    }
+
+    if (name.trim().length === 0) {
+        res.status(400).json({
+            error: "Location name cannot be empty",
+        });
+        return false;
+    }
+
+    if (name.length > 100) {
+        res.status(400).json({
+            error: "Location name should not exceed 100 characters",
+        });
+        return false;
+    }
+
+    if (!/[\p{L}]/u.test(name)) {
+        res.status(400).json({
+            error: "Location name must contain at least one letter",
+        });
+        return false;
+    }
+
+    return true;
+}
+
 export default {
     validateWeatherRequest,
     validateLocationRequest,
+    validateObjectIdRequest
 };

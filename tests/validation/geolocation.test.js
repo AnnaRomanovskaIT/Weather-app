@@ -1,9 +1,9 @@
-import test from "node:test";
+import { it, describe } from "node:test";
 import assert from "node:assert/strict";
-
 import validator from "../../src/validation/validation.js";
 
-test("accepts a valid location name", () => {
+describe("validateLocationRequest", () => {
+it("accepts a valid location name", () => {
     const req = {
         query: {
             name: "Wrocław",
@@ -21,7 +21,7 @@ test("accepts a valid location name", () => {
     assert.equal(nextCalled, true);
 });
 
-test("rejects an empty location name", () => {
+it("rejects an empty location name", () => {
     const req = {
         query: {
             name: "",
@@ -54,7 +54,7 @@ test("rejects an empty location name", () => {
     assert.equal(nextCalled, false);
 });
 
-test("rejects a missing location name", () => {
+it("rejects a missing location name", () => {
     const req = {
         query: {},
     };
@@ -85,7 +85,7 @@ test("rejects a missing location name", () => {
     assert.equal(nextCalled, false);
 });
 
-test("rejects a location name containing no letters", () => {
+it("rejects a location name containing no letters", () => {
     const req = {
         query: {
             name: "@^!&@!&$",
@@ -119,4 +119,5 @@ test("rejects a location name containing no letters", () => {
         "Location name must contain at least one letter"
     );
     assert.equal(nextCalled, false);
+});
 });
