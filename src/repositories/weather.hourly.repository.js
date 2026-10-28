@@ -30,11 +30,13 @@ export async function findById(id) {
 
 export async function findLatestByLocationAndDate(latitude, longitude, date) {
     const db = getDb();
-    const document = await db
-        .collection(COLLECTION_NAME)
-        .findOne(
-            { "location.latitude": latitude, "location.longitude": longitude, "date": date },
-            { sort: { createdAt: -1 } }
-        );
+    const document = await db.collection(COLLECTION_NAME).findOne(
+        {
+            "location.latitude": latitude,
+            "location.longitude": longitude,
+            date: date,
+        },
+        { sort: { createdAt: -1 } }
+    );
     return mapMongoDocumentToWeather(document);
 }

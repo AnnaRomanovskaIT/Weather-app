@@ -10,9 +10,7 @@ export async function saveDaily(weather) {
     const document = { ...weather };
     delete document.id;
 
-    const result = await db
-        .collection(COLLECTION_NAME)
-        .insertOne(document);
+    const result = await db.collection(COLLECTION_NAME).insertOne(document);
 
     return {
         ...document,

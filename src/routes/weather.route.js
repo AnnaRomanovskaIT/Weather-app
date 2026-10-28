@@ -11,7 +11,8 @@ router.get(
         try {
             const latitude = Number(req.query.latitude);
             const longitude = Number(req.query.longitude);
-            const locationName = typeof req.query.name === "string" ? req.query.name : "Unknown";
+            const locationName =
+                typeof req.query.name === "string" ? req.query.name : "Unknown";
             const date = req.query.date || null;
             const weather = await weatherService.getHourlyWeather(
                 latitude,
@@ -34,7 +35,8 @@ router.get(
         try {
             const latitude = Number(req.query.latitude);
             const longitude = Number(req.query.longitude);
-            const locationName = typeof req.query.name === "string" ? req.query.name : "Unknown";
+            const locationName =
+                typeof req.query.name === "string" ? req.query.name : "Unknown";
 
             const weather = await weatherService.getDailyWeather(
                 latitude,
