@@ -48,11 +48,7 @@ function App() {
         setError(null);
 
         try {
-            const result = await getForecast(
-                location.latitude,
-                location.longitude,
-                location.name
-            );
+            const result = await getForecast(location.latitude, location.longitude, location.name);
 
             setWeather(result);
         } catch (err) {
@@ -75,20 +71,10 @@ function App() {
                 onSearch={handleSearch}
             />
 
-            {!selectedLocation && (
-                <LocationResults
-                    locations={locations}
-                    onSelect={handleLocationSelect}
-                />
-            )}
+            {!selectedLocation && <LocationResults locations={locations} onSelect={handleLocationSelect} />}
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
-            {selectedLocation && (
-                <WeatherForecast
-                    location={selectedLocation}
-                    weather={weather}
-                />
-            )}
+            {selectedLocation && <WeatherForecast location={selectedLocation} weather={weather} />}
         </div>
     );
 }

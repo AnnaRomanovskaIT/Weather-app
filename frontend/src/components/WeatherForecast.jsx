@@ -55,9 +55,7 @@ function WeatherForecast({ location, weather }) {
     const currentHour = new Date();
     currentHour.setMinutes(0, 0, 0);
 
-    const upcomingForecast = weather.forecast.filter(
-        (item) => new Date(item.time) >= currentHour
-    );
+    const upcomingForecast = weather.forecast.filter((item) => new Date(item.time) >= currentHour);
 
     return (
         <section className="weather-forecast">
@@ -65,28 +63,17 @@ function WeatherForecast({ location, weather }) {
                 {location.name}, {location.countryName}
             </h2>
 
-            <p className="forecast-date">
-                {weather.date}
-            </p>
+            <p className="forecast-date">{weather.date}</p>
 
             <div className="forecast-scroll">
                 <div className="forecast-list">
                     {upcomingForecast.map((item) => (
-                        <div
-                            key={item.time}
-                            className="forecast-item"
-                        >
-                            <span className="forecast-time">
-                                {formatTime(item.time)}
-                            </span>
+                        <div key={item.time} className="forecast-item">
+                            <span className="forecast-time">{formatTime(item.time)}</span>
 
-                            <span className="forecast-icon">
-                                {getWeatherIcon(item.weatherCode)}
-                            </span>
+                            <span className="forecast-icon">{getWeatherIcon(item.weatherCode)}</span>
 
-                            <span className="forecast-temperature">
-                                {Math.round(item.temperature)}°
-                            </span>
+                            <span className="forecast-temperature">{Math.round(item.temperature)}°</span>
                         </div>
                     ))}
                 </div>
