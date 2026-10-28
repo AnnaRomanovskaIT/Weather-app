@@ -1,13 +1,5 @@
 export class Geolocation {
-    constructor({
-        id,
-        name,
-        latitude,
-        longitude,
-        isoCode,
-        countryName,
-        timezone,
-    }) {
+    constructor({ id, name, latitude, longitude, isoCode, countryName, timezone }) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;

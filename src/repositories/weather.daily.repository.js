@@ -32,9 +32,6 @@ export async function findLatestByLocation(latitude, longitude) {
     const db = getDb();
     const document = await db
         .collection(COLLECTION_NAME)
-        .findOne(
-            { "location.latitude": latitude, "location.longitude": longitude },
-            { sort: { createdAt: -1 } }
-        );
+        .findOne({ "location.latitude": latitude, "location.longitude": longitude }, { sort: { createdAt: -1 } });
     return mapMongoDocumentToWeather(document);
 }

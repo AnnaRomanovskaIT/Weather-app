@@ -114,10 +114,7 @@ describe("validateLocationRequest", () => {
         validator.validateLocationRequest(req, res, next);
 
         assert.equal(response.status, 400);
-        assert.equal(
-            response.body.error,
-            "Location name must contain at least one letter"
-        );
+        assert.equal(response.body.error, "Location name must contain at least one letter");
         assert.equal(nextCalled, false);
     });
 });

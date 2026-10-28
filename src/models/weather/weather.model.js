@@ -39,14 +39,7 @@ export class ForecastHourly {
 }
 
 export class ForecastDaily {
-    constructor({
-        time,
-        temperatureMax,
-        temperatureMin,
-        weatherCode,
-        precipitationProbability,
-        windSpeed,
-    }) {
+    constructor({ time, temperatureMax, temperatureMin, weatherCode, precipitationProbability, windSpeed }) {
         this.time = time;
         this.temperatureMax = temperatureMax;
         this.temperatureMin = temperatureMin;

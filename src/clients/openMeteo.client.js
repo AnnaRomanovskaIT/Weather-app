@@ -2,12 +2,7 @@ import { ExternalApiError } from "../errors/external-api.error.js";
 import { config } from "../config/config.js";
 
 function getUrl(latitude, longitude) {
-    return (
-        `${config.openMeteo.weatherUrl}?` +
-        `latitude=${latitude}` +
-        `&longitude=${longitude}` +
-        "&timezone=auto"
-    );
+    return `${config.openMeteo.weatherUrl}?` + `latitude=${latitude}` + `&longitude=${longitude}` + "&timezone=auto";
 }
 
 async function getMeteoHourlyWeather(latitude, longitude, date = null) {
@@ -29,10 +24,7 @@ async function getMeteoHourlyWeather(latitude, longitude, date = null) {
     const response = await fetch(url);
 
     if (!response.ok) {
-        throw new ExternalApiError(
-            "Open-Meteo request failed",
-            response.status
-        );
+        throw new ExternalApiError("Open-Meteo request failed", response.status);
     }
 
     return response.json();
@@ -52,10 +44,7 @@ async function getMeteoDailyWeather(latitude, longitude) {
     const response = await fetch(url);
 
     if (!response.ok) {
-        throw new ExternalApiError(
-            "Open-Meteo request failed",
-            response.status
-        );
+        throw new ExternalApiError("Open-Meteo request failed", response.status);
     }
 
     return response.json();
@@ -71,10 +60,7 @@ async function getGeolocation(cityName, locale = "en") {
     );
 
     if (!response.ok) {
-        throw new ExternalApiError(
-            "Open-Meteo request failed",
-            response.status
-        );
+        throw new ExternalApiError("Open-Meteo request failed", response.status);
     }
 
     return response.json();

@@ -6,11 +6,7 @@ function SearchBox({ city, onCityChange, onSearch }) {
                 onSearch();
             }}
         >
-            <input
-                value={city}
-                onChange={(event) => onCityChange(event.target.value)}
-                placeholder="Enter a city"
-            />
+            <input value={city} onChange={(event) => onCityChange(event.target.value)} placeholder="Enter a city" />
 
             <button type="submit">Search</button>
         </form>

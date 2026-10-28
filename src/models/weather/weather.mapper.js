@@ -1,9 +1,4 @@
-import {
-    ForecastHourly,
-    ForecastDaily,
-    Location,
-    Weather,
-} from "./weather.model.js";
+import { ForecastHourly, ForecastDaily, Location, Weather } from "./weather.model.js";
 
 export function mapOpenMeteoHourlyToWeather(data, locationName) {
     const forecast = data.hourly.time.map(
@@ -14,8 +9,7 @@ export function mapOpenMeteoHourlyToWeather(data, locationName) {
                 apparentTemperature: data.hourly.apparent_temperature[index],
                 weatherCode: data.hourly.weather_code[index],
                 humidity: data.hourly.relative_humidity_2m[index],
-                precipitationProbability:
-                    data.hourly.precipitation_probability[index],
+                precipitationProbability: data.hourly.precipitation_probability[index],
                 windSpeed: data.hourly.wind_speed_10m[index],
                 isDay: data.hourly.is_day[index],
             })
@@ -42,8 +36,7 @@ export function mapOpenMeteoDailyToWeather(data, locationName) {
                 temperatureMax: data.daily.temperature_2m_max[index],
                 temperatureMin: data.daily.temperature_2m_min[index],
                 weatherCode: data.daily.weather_code[index],
-                precipitationProbability:
-                    data.daily.precipitation_probability_max[index],
+                precipitationProbability: data.daily.precipitation_probability_max[index],
                 windSpeed: data.daily.wind_speed_10m_max[index],
             })
     );

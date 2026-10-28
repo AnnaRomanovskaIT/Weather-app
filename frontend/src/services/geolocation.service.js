@@ -1,7 +1,5 @@
 export async function searchLocations(name) {
-    const response = await fetch(
-        `/api/locations?name=${encodeURIComponent(name)}&locale=en`
-    );
+    const response = await fetch(`/api/locations?name=${encodeURIComponent(name)}&locale=en`);
 
     const data = await response.json();
 
