@@ -75,5 +75,5 @@ function validateLocationName(name, res) {
 export default {
     validateWeatherRequest,
     validateLocationRequest,
-    validateObjectIdRequest
+    validateObjectIdRequest,
 };

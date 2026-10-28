@@ -12,9 +12,7 @@ function SearchBox({ city, onCityChange, onSearch }) {
                 placeholder="Enter a city"
             />
 
-            <button type="submit">
-                Search
-            </button>
+            <button type="submit">Search</button>
         </form>
     );
 }
