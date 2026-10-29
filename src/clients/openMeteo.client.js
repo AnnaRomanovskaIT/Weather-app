@@ -7,6 +7,7 @@ function getUrl(latitude, longitude) {
 
 async function getMeteoHourlyWeather(latitude, longitude, date = null) {
     let url = getUrl(latitude, longitude);
+
     url +=
         "&hourly=" +
         "temperature_2m," +
@@ -15,16 +16,24 @@ async function getMeteoHourlyWeather(latitude, longitude, date = null) {
         "relative_humidity_2m," +
         "precipitation_probability," +
         "wind_speed_10m," +
-        "is_day" +
-        "&forecast_days=1";
+        "is_day";
+
     if (date) {
         url += `&start_date=${date}&end_date=${date}`;
+    } else {
+        url += "&forecast_days=1";
     }
 
     const response = await fetch(url);
 
     if (!response.ok) {
-        throw new ExternalApiError("Open-Meteo request failed", response.status);
+        const details = await response.json();
+
+        throw new ExternalApiError(
+            `Open-Meteo request failed: ${details.reason}`,
+            response.status,
+            details
+        );
     }
 
     return response.json();
@@ -43,8 +52,16 @@ async function getMeteoDailyWeather(latitude, longitude) {
 
     const response = await fetch(url);
 
-    if (!response.ok) {
-        throw new ExternalApiError("Open-Meteo request failed", response.status);
+if (!response.ok) {
+    const details = await response.json();
+
+    console.error("Open-Meteo error:", details);
+
+    throw new ExternalApiError(
+        "Open-Meteo request failed",
+        response.status,
+        details
+    );
     }
 
     return response.json();
