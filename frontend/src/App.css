@@ -1,10 +1,71 @@
 .app {
-    padding: 20px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
-.app h1 {
-    margin-bottom: 24px;
+/* Search */
+
+/* Search */
+
+.app header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
 }
+
+.app header form {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+}
+
+.app header input {
+    flex: 1;
+
+    padding: 12px 16px;
+
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+
+    background: #1f2b3d;
+    color: var(--text-h);
+
+    font-size: 16px;
+    outline: none;
+}
+
+.app header input::placeholder {
+    color: var(--text);
+}
+
+.app header input:focus {
+    border-color: var(--accent);
+}
+
+.app header button {
+    padding: 12px 20px;
+
+    border: 1px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+
+    background: var(--accent);
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.app header button:hover {
+    opacity: 0.9;
+}
+
+/* Location results */
 
 .location-results {
     width: 300px;
@@ -46,30 +107,47 @@
     font-size: 0.9rem;
 }
 
-.weather-forecast {
-    width: 600px;
-    max-width: 100%;
-    margin: 24px auto;
+/* Dashboard */
+
+.weather-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    text-align: left;
 }
 
-.forecast-scroll {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-top: 24px;
-    padding-bottom: 8px;
-}
-
-.forecast-list {
+.dashboard-main {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    width: max-content;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Current weather */
+
+.current-weather {
+    padding: 24px;
+}
+
+.current-weather h2 {
+    margin-bottom: 12px;
+}
+
+/* Hourly forecast */
+
+.hourly-forecast {
+    padding: 24px;
+    border-radius: 16px;
+    background: #1f2b3d;
+}
+
+.hourly-forecast h2 {
+    margin-bottom: 20px;
 }
 
 .forecast-item {
     flex: 0 0 72px;
-    padding: 8px 4px;
+
+    padding: 12px 8px;
 
     display: flex;
     flex-direction: column;
@@ -79,4 +157,158 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     background: var(--bg);
+}
+
+.forecast-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.forecast-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 4px 40px 12px;
+
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.forecast-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.forecast-list {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+}
+
+.forecast-arrow {
+    position: absolute;
+    z-index: 2;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    background: #1f2b3d;
+    color: var(--text-h);
+
+    cursor: pointer;
+}
+
+.forecast-arrow:hover {
+    background: var(--accent-bg);
+}
+
+.forecast-arrow-left {
+    left: 4px;
+}
+
+.forecast-arrow-right {
+    right: 4px;
+}
+
+/* Air conditions */
+
+.air-conditions {
+    padding: 24px;
+    border-radius: 16px;
+    background: #1f2b3d;
+}
+
+.air-conditions h2 {
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.condition {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.condition-label {
+    font-size: 14px;
+    color: #9ba8b8;
+}
+
+.condition-value {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Daily forecast */
+
+.daily-forecast {
+    padding: 24px;
+    border-radius: 16px;
+    background: #1f2b3d;
+}
+
+.daily-forecast h2 {
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.daily-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.daily-item {
+    display: grid;
+    grid-template-columns: 60px 40px 1fr;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.daily-item:last-child {
+    border-bottom: none;
+}
+
+.daily-day {
+    font-weight: 500;
+}
+
+.daily-icon {
+    text-align: center;
+}
+
+.daily-temperature {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    .weather-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .daily-forecast {
+        order: 3;
+    }
 }

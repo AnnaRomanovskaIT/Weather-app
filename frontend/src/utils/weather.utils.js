@@ -37,3 +37,15 @@ export function getWeatherIcon(weatherCode, isDay) {
 
     return "🌡️";
 }
+export function formatTime(date) {
+    return new Date(date).toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+}
+
+export function formatDay(date) {
+    return new Date(date).toLocaleDateString([], {
+        weekday: "short",
+    });
+}
