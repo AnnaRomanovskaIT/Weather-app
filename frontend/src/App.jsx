@@ -19,6 +19,7 @@ function App() {
 
     const [hourlyWeather, setHourlyWeather] = useState(null);
     const [dailyWeather, setDailyWeather] = useState(null);
+    const [selectedHour, setSelectedHour] = useState(null);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -53,23 +54,39 @@ function App() {
         setError(null);
         setHourlyWeather(null);
         setDailyWeather(null);
+        setSelectedHour(null);
 
         try {
-            const [hourly, daily] = await Promise.all([
-                getHourlyForecast(
-                    location.latitude,
-                    location.longitude,
-                    location.name
-                ),
-                getDailyForecast(
-                    location.latitude,
-                    location.longitude,
-                    location.name
-                ),
-            ]);
+        const [hourly, daily] = await Promise.all([
+            getHourlyForecast(
+                location.latitude,
+                location.longitude,
+                location.name
+            ),
+            getDailyForecast(
+                location.latitude,
+                location.longitude,
+                location.name
+            ),
+        ]);
 
-            setHourlyWeather(hourly);
-            setDailyWeather(daily);
+        setHourlyWeather(hourly);
+        setDailyWeather(daily);
+
+        const now = new Date();
+
+        const currentHour = hourly.forecast.find((item) => {
+            const itemDate = new Date(item.time);
+
+            return (
+                itemDate.getFullYear() === now.getFullYear() &&
+                itemDate.getMonth() === now.getMonth() &&
+                itemDate.getDate() === now.getDate() &&
+                itemDate.getHours() === now.getHours()
+            );
+        });
+
+        setSelectedHour(currentHour ?? hourly.forecast[0]);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -102,12 +119,14 @@ function App() {
             {error && <p>{error}</p>}
 
             {selectedLocation && hourlyWeather && dailyWeather && (
-                <WeatherDashboard
-                    location={selectedLocation}
-                    currentWeather={hourlyWeather.forecast[0]}
-                    hourlyWeather={hourlyWeather}
-                    dailyWeather={dailyWeather}
-                />
+            <WeatherDashboard
+                location={selectedLocation}
+                currentWeather={selectedHour}
+                hourlyWeather={hourlyWeather}
+                dailyWeather={dailyWeather}
+                selectedHour={selectedHour}
+                onHourSelect={setSelectedHour}
+            />
             )}
         </div>
     );

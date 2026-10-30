@@ -10,7 +10,11 @@ function formatTime(time) {
     });
 }
 
-function HourlyForecast({ weather }) {
+function HourlyForecast({
+    weather,
+    selectedHour,
+    onHourSelect,
+}) {
     const scrollRef = useRef(null);
 
     useEffect(() => {
@@ -81,27 +85,31 @@ function HourlyForecast({ weather }) {
                 >
                     <div className="forecast-list">
                         {weather.forecast.map((item) => (
-                            <div
-                                key={item.time}
-                                id={`hour-${item.time}`}
-                                className="forecast-item"
-                            >
-                                <span className="forecast-time">
-                                    {formatTime(item.time)}
-                                </span>
+                        <button
+                            key={item.time}
+                            id={`hour-${item.time}`}
+                            type="button"
+                            className={`forecast-item ${
+                                selectedHour?.time === item.time ? "selected" : ""
+                            }`}
+                            onClick={() => onHourSelect(item)}
+                        >
+                            <span className="forecast-time">
+                                {formatTime(item.time)}
+                            </span>
 
-                                <span className="forecast-icon">
-                                    {getWeatherIcon(
-                                        item.weatherCode,
-                                        item.isDay
-                                    )}
-                                </span>
+                            <span className="forecast-icon">
+                                {getWeatherIcon(
+                                    item.weatherCode,
+                                    item.isDay
+                                )}
+                            </span>
 
-                                <span className="forecast-temperature">
-                                    {Math.round(item.temperature)}°
-                                </span>
-                            </div>
-                        ))}
+                            <span className="forecast-temperature">
+                                {Math.round(item.temperature)}°
+                            </span>
+                        </button>
+                    ))}
                     </div>
                 </div>
 

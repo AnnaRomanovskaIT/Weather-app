@@ -8,6 +8,8 @@ function WeatherDashboard({
     currentWeather,
     hourlyWeather,
     dailyWeather,
+    selectedHour,
+    onHourSelect,
 }) {
     return (
         <main className="weather-dashboard">
@@ -17,7 +19,11 @@ function WeatherDashboard({
                     weather={currentWeather}
                 />
 
-                <HourlyForecast weather={hourlyWeather} />
+                <HourlyForecast
+                    weather={hourlyWeather}
+                    selectedHour={selectedHour}
+                    onHourSelect={onHourSelect}
+                />
 
                 <AirConditions weather={currentWeather} />
             </div>
