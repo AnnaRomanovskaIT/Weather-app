@@ -1,6 +1,12 @@
-import { getWeatherIcon, formatDay } from "../utils/weather.utils";
+import { getWeatherIcon } from "../utils/weather.utils";
 
-function DailyForecast({ weather }) {
+function formatDay(date) {
+    return new Date(date).toLocaleDateString([], {
+        weekday: "short",
+    });
+}
+
+function DailyForecast({ weather, selectedDate, onDaySelect }) {
     if (!weather) {
         return <p>Loading forecast...</p>;
     }
@@ -11,7 +17,14 @@ function DailyForecast({ weather }) {
 
             <div className="daily-list">
                 {weather.forecast.map((item) => (
-                    <div key={item.time} className="daily-item">
+                    <button
+                        key={item.time}
+                        type="button"
+                        className={`daily-item ${
+                            selectedDate === item.time ? "selected" : ""
+                        }`}
+                        onClick={() => onDaySelect(item.time)}
+                    >
                         <span className="daily-day">
                             {formatDay(item.time)}
                         </span>
@@ -24,7 +37,7 @@ function DailyForecast({ weather }) {
                             {Math.round(item.temperatureMin)}° /{" "}
                             {Math.round(item.temperatureMax)}°
                         </span>
-                    </div>
+                    </button>
                 ))}
             </div>
         </section>

@@ -18,29 +18,12 @@ function HourlyForecast({
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        if (!weather || !scrollRef.current) {
-            return;
-        }
-
-        const now = new Date();
-
-        const currentItem = weather.forecast.find((item) => {
-            const itemDate = new Date(item.time);
-
-            return (
-                itemDate.getFullYear() === now.getFullYear() &&
-                itemDate.getMonth() === now.getMonth() &&
-                itemDate.getDate() === now.getDate() &&
-                itemDate.getHours() === now.getHours()
-            );
-        });
-
-        if (!currentItem) {
+        if (!weather || !selectedHour || !scrollRef.current) {
             return;
         }
 
         const element = document.getElementById(
-            `hour-${currentItem.time}`
+            `hour-${selectedHour.time}`
         );
 
         if (!element) {
@@ -48,7 +31,7 @@ function HourlyForecast({
         }
 
         scrollRef.current.scrollLeft = element.offsetLeft;
-    }, [weather]);
+    }, [weather, selectedHour]);
 
     function scroll(direction) {
         if (!scrollRef.current) {
